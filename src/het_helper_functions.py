@@ -3,14 +3,15 @@ import astroquery
 import pandas as pd
 from astroquery.simbad import Simbad
 import numpy as np
-import het_obs
 import astropy.coordinates
 import astropy.units as u
 import astropy.coordinates
+import het_obs
 import het_config
 from skyfield.api import load, Star, Angle
 import astropy.units as u
 import astropy
+
 MAX_ALT = het_config.HET_MAX_ALT
 MIN_ALT = het_config.HET_MIN_ALT
 

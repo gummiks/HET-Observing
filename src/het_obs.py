@@ -8,21 +8,13 @@ Created on Mon Oct 10 19:36:52 2016
 from numpy import *
 from matplotlib.pyplot import *
 import pandas as pd
-from scipy.interpolate import griddata
-import glob
-from astropy.io import fits
 import os
-from lmfit import minimize, Parameters, Parameter, report_fit
-from lmfit.models import LinearModel
-import scipy.signal
-import scipy.constants as const
 import astropy
 import astropy.coordinates
 import astroplan
 import astropy.units as u
 import astroplan.plots
 from skyfield.api import load, Star, Angle
-#from tqdm import tqdm_notebook as tqdm
 from tqdm import tqdm
 import het_helper_functions
 import het_config
