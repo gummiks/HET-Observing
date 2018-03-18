@@ -55,7 +55,7 @@ class HETObservability:
         self.num_nights = len(all_times)
         jd_arr = [i.jd for i in all_times]
         hori = astropy.coordinates.Angle(twilight_angle,unit=u.degree) # have used -12
-        print("Crating array of {} nights to check observability".format(self.num_nights))
+        print("Creating array of {} nights to check observability".format(self.num_nights))
 
         #################################
         print("Calculating Sunrise/Sunset Times")
@@ -82,7 +82,7 @@ class HETObservability:
         decs = linspace(-90.,90.,10000)#dindgen(1d5)/1d5*180d - 90d ;declinations to try
         decs_rad = radians(decs) #del_rad = del * !dtor
 
-        phi = self.hetloc.latitude.radian
+        phi = self.hetloc.lat.radian
         alt1 = radians(het_config.HET_MAX_ALT)
         alt2 = radians(het_config.HET_MIN_ALT)
         

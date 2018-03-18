@@ -15,6 +15,10 @@ See notebooks on submitting LRS2 TSL files, and a notional HPF TSL file
 # Dependencies
 - astropy
 - astroplan
+- astroquery
+- skyfield
+- pandas
+- tqdm
 
 ### Todo
 - Add Joe Ninan's pyHETObs code for track filling
