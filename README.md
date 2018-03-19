@@ -20,8 +20,8 @@ Take a look at the ipynb notebooks in `/notebooks`
 - astroplan: https://astroplan.readthedocs.io/en/latest/
 - astroquery: http://astroquery.readthedocs.io/en/latest/
 - skyfield: http://rhodesmill.org/skyfield/
-- pandas
-- tqdm
+- pandas: http://pandas.pydata.org/
+- tqdm: https://pypi.python.org/pypi/tqdm
 
 ### Todo
 - Add Joe Ninan's pyHETObs code for track filling
