@@ -16,10 +16,10 @@ Additionally, a notebook on creating HPF engineering-run TSL files is included (
 Take a look at the ipynb notebooks in `/notebooks`
 
 # Dependencies
-- astropy
-- astroplan
-- astroquery
-- skyfield
+- astropy: http://www.astropy.org/
+- astroplan: https://astroplan.readthedocs.io/en/latest/
+- astroquery: http://astroquery.readthedocs.io/en/latest/
+- skyfield: http://rhodesmill.org/skyfield/
 - pandas
 - tqdm
 
