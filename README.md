@@ -26,5 +26,6 @@ Take a look at the ipynb notebooks in `/notebooks`
 ### Todo
 - Add Joe Ninan's pyHETObs code for track filling
 
-# Acknowledgements
-- Many thanks go to Ryan Terrien and Joe Ninan
+# Coauthors
+- Ryan Terrien
+- Joe Ninan
