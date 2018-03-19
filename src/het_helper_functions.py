@@ -1,16 +1,24 @@
 from __future__ import print_function
-import astroquery
 import pandas as pd
-from astroquery.simbad import Simbad
 import numpy as np
+import matplotlib.pyplot as plt
+
+from astroquery.simbad import Simbad
+import astroquery
+import astropy
 import astropy.coordinates
 import astropy.units as u
 import astropy.coordinates
+from astropy.time import Time
+from astropy.coordinates import get_moon, get_sun
+from astropy.coordinates import SkyCoord
+from astroplan import moon_illumination
+from astroplan import FixedTarget
+from astroplan import Observer
+from skyfield.api import load, Star, Angle
+
 import het_obs
 import het_config
-from skyfield.api import load, Star, Angle
-import astropy.units as u
-import astropy
 
 MAX_ALT = het_config.HET_MAX_ALT
 MIN_ALT = het_config.HET_MIN_ALT
@@ -267,3 +275,84 @@ def arange_time(t_start,t_stop,delta=1.,form="datetime"):
         times = [getattr(astropy.time.Time(time,format="jd",scale="utc"),form) for time in times_jd]
     return np.array(times)
 
+
+def get_moon_distance(target_c1,time):
+    """
+    Get moon distance from target star
+
+    INPUT:
+        target_c1 - astropy.skycoord object
+        time - astropy.time.Time object
+
+    OUTPUT:
+        angle - astropy.angle
+    
+    Example:
+        time = Time('2018-02-24 02:13:00')
+        targ = FixedTarget.from_name("GJ 699")
+        get_moon_distance(targ.coord,time).deg
+    """
+    moon = get_moon(time)
+    return moon.separation(target_c1)
+
+def get_moon_illumination(time):
+    """
+    Get moon illumination (number from 0 to 1) at a given time
+    INPUT:
+        time - astropy.time.Time object
+    
+    OUTPUT:
+        moon illumination from 0 to 1
+    """
+    return moon_illumination(time)
+
+def plot_target_radecs_and_moon(ras,decs,names,time,savename=None,savefolder=""):
+    """
+    Plot and RA DEC plot of targets and Moon
+
+    INPUT:
+        ras - ras (degrees) of target stars
+        decs - decs (degrees) of target stars
+        names - names of target stars
+        time - astropy time
+        savename - output name of .png file to save the plot.
+
+    EXAMPLE:
+        time = Time("2018-02-25 00:00:00")
+        plot_target_radecs_and_moon(ras,decs,df_all.SIMBADNAME.values,time)
+    """
+
+    mcd = Observer.at_site('McDonald Observatory')
+
+    sun_rise = mcd.sun_rise_time(time,which="next")
+    sun_set  = mcd.sun_set_time(time,which="next")
+    times = sun_set + (sun_rise-sun_set)*np.linspace(0, 1, 20)
+    moon = get_moon(times)
+
+    illum = moon_illumination(times[10]) # get moon illumination at middle of the time array
+
+    fig, ax = plt.subplots(figsize=(12,8),dpi=200)
+    ax.plot(ras,decs,"k.")
+    ax.plot(moon.ra.value,moon.dec.value,label="Moon")
+    ax.plot(moon.ra.value[0],moon.dec.value[0],color="red",marker="o",label="Moon: Sunset",lw=0)
+    ax.plot(moon.ra.value[-1],moon.dec.value[-1],color="orange",marker="o",label="Moon: Sunrise",lw=0)
+
+    for i, name in enumerate(names):
+        ax.text(ras[i],decs[i],name)
+
+    ax.legend(loc="upper left")
+    ax.minorticks_on()
+    ax.grid(lw=0.5,alpha=0.3)
+    ax.set_xlabel("RA (deg)")
+    ax.set_ylabel("Dec (deg)")
+    title = "Targets and Moon on {} UT".format(str(time)[0:10])
+    title += "\n Sunset: {}".format(str(sun_set.iso))
+    title += "\n Sunrise: {}".format(str(sun_rise.iso))
+    title += "\n Moon illumination: {:0.3}%".format(illum*100)
+
+    ax.set_title(title)
+    if savename is None:
+        savename = "moondistance_"+str(time)[0:10]+".png"
+    savename = savefolder+savename
+    fig.savefig(savename)
+    print("saved to {}".format(savename))
