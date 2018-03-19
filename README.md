@@ -1,16 +1,13 @@
 # HET-Observing
-Useful scripts for observing with The Hobby-Eberly Telescope
+Useful scripts for observing with The Hobby-Eberly Telescope.
 
-HET currently has the Low-Resolution-Spectrograph (LRS2)
+# Example HET TSL Files
+See notebooks on creating an LRS2 TSL file.
 
-Additionally, the Habitable-zone Planet Finder (HPF) spectrograph is being commissioned.
+Additionally, a HPF engineering-run TSL file is included (some caveats as HPF is currently being commissioned; see notebook).
 
-# HET TSL Files
-
-See notebooks on submitting LRS2 TSL files, and a notional HPF TSL file 
-
-# Plotting HET tracks
-
+# Getting started
+Take a look at the ipynb notebooks in `/notebooks`
 
 # Dependencies
 - astropy
@@ -23,5 +20,5 @@ See notebooks on submitting LRS2 TSL files, and a notional HPF TSL file
 ### Todo
 - Add Joe Ninan's pyHETObs code for track filling
 
-# Attributions
+# Acknowledgements
 - Many thanks go to Ryan Terrien and Joe Ninan
