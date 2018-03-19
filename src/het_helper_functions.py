@@ -324,8 +324,8 @@ def plot_target_radecs_and_moon(ras,decs,names,time,savename=None,savefolder="")
 
     mcd = Observer.at_site('McDonald Observatory')
 
-    sun_rise = mcd.sun_rise_time(time,which="next")
-    sun_set  = mcd.sun_set_time(time,which="next")
+    sun_rise = mcd.sun_rise_time(time,which="nearest")
+    sun_set  = mcd.sun_set_time(time,which="nearest")
     times = sun_set + (sun_rise-sun_set)*np.linspace(0, 1, 20)
     moon = get_moon(times)
 
